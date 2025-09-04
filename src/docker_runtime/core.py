@@ -7,3 +7,38 @@ from pathlib import Path
 from typing import Any, Sequence
 
 
+class DockerRuntimeError(Exception):
+    pass
+
+
+class ImageBuildError(DockerRuntimeError):
+    def __init__(self, image: str, detail: str) -> None:
+        super().__init__(f"build failed for {image!r}: {detail}")
+        self.image = image
+
+
+class ContainerNotFoundError(DockerRuntimeError):
+    def __init__(self, name: str) -> None:
+        super().__init__(f"container not found: {name!r}")
+
+
+class DockerUnavailableError(DockerRuntimeError):
+    pass
+
+
+@dataclass(frozen=True)
+class ContainerSpec:
+    name: str
+    image: str
+    ports: tuple[tuple[int, int], ...] = ()
+    env: dict[str, str] = field(default_factory=dict)
+    volumes: tuple[tuple[str, str], ...] = ()
+    command: tuple[str, ...] = ()
+
+    @property
+    def run_args(self) -> list[str]:
+        args = ["run", "-d", "--name", self.name]
+        for host_port, container_port in self.ports:
+            args += ["-p", f"{host_port}:{container_port}"]
+        for key, value in sorted(self.env.items()):
+            args += ["-e", f"{key}={value}"]
