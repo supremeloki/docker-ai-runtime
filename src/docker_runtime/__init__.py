@@ -3,3 +3,4 @@ from .core import (
     ContainerNotFoundError,
     ContainerSpec,
     DockerRuntimeError,
+    DockerUnavailableError,
