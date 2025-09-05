@@ -42,3 +42,5 @@ class ContainerSpec:
             args += ["-p", f"{host_port}:{container_port}"]
         for key, value in sorted(self.env.items()):
             args += ["-e", f"{key}={value}"]
+        for host_path, container_path in self.volumes:
+            args += ["-v", f"{host_path}:{container_path}"]
