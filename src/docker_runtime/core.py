@@ -46,3 +46,6 @@ class ContainerSpec:
             args += ["-v", f"{host_path}:{container_path}"]
         args.append(self.image)
         if self.command:
+            args += list(self.command)
+        return args
+
