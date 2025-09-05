@@ -44,3 +44,5 @@ class ContainerSpec:
             args += ["-e", f"{key}={value}"]
         for host_path, container_path in self.volumes:
             args += ["-v", f"{host_path}:{container_path}"]
+        args.append(self.image)
+        if self.command:
