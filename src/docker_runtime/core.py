@@ -49,3 +49,5 @@ class ContainerSpec:
             args += list(self.command)
         return args
 
+
+@dataclass(frozen=True)
