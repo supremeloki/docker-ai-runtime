@@ -51,3 +51,5 @@ class ContainerSpec:
 
 
 @dataclass(frozen=True)
+class BuildResult:
+    image_tag: str
