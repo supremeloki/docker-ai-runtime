@@ -53,3 +53,6 @@ class ContainerSpec:
 @dataclass(frozen=True)
 class BuildResult:
     image_tag: str
+    layers_cached: bool
+    duration_seconds: float
+
