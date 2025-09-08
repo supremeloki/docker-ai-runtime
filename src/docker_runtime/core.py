@@ -56,3 +56,5 @@ class BuildResult:
     layers_cached: bool
     duration_seconds: float
 
+    @property
+    def succeeded(self) -> bool:
