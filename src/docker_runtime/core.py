@@ -60,3 +60,5 @@ class BuildResult:
     def succeeded(self) -> bool:
         return True
 
+
+DEFAULT_BASE_IMAGE = "python:3.11-slim"
