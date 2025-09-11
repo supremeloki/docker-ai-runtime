@@ -69,3 +69,6 @@ def render_dockerfile(base_image: str = DEFAULT_BASE_IMAGE,
                       app_module: str = "main") -> str:
     lines = [f"FROM {base_image}", "WORKDIR /app"]
     if requirements_file:
+        lines += [f"COPY {requirements_file} .", "RUN pip install --no-cache-dir -r " + requirements_file]
+    lines += [
+        "COPY . .",
