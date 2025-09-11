@@ -67,3 +67,5 @@ DEFAULT_BASE_IMAGE = "python:3.11-slim"
 def render_dockerfile(base_image: str = DEFAULT_BASE_IMAGE,
                       requirements_file: str | None = None,
                       app_module: str = "main") -> str:
+    lines = [f"FROM {base_image}", "WORKDIR /app"]
+    if requirements_file:
