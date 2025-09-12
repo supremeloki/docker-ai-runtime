@@ -76,3 +76,5 @@ def render_dockerfile(base_image: str = DEFAULT_BASE_IMAGE,
     ]
     return "\n".join(lines) + "\n"
 
+
+def render_compose(services: Sequence[ContainerSpec]) -> dict[str, Any]:
