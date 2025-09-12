@@ -74,3 +74,5 @@ def render_dockerfile(base_image: str = DEFAULT_BASE_IMAGE,
         "COPY . .",
         f"CMD [\"python\", \"-m\", \"{app_module}\"]",
     ]
+    return "\n".join(lines) + "\n"
+
