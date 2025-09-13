@@ -78,3 +78,6 @@ def render_dockerfile(base_image: str = DEFAULT_BASE_IMAGE,
 
 
 def render_compose(services: Sequence[ContainerSpec]) -> dict[str, Any]:
+    compose: dict[str, Any] = {"services": {}}
+    for spec in services:
+        entry: dict[str, Any] = {"image": spec.image}
