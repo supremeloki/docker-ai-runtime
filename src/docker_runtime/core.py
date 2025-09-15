@@ -85,3 +85,6 @@ def render_compose(services: Sequence[ContainerSpec]) -> dict[str, Any]:
             entry["ports"] = [f"{h}:{c}" for h, c in spec.ports]
         if spec.env:
             entry["environment"] = {k: v for k, v in sorted(spec.env.items())}
+        if spec.volumes:
+            entry["volumes"] = [f"{h}:{c}" for h, c in spec.volumes]
+        if spec.command:
