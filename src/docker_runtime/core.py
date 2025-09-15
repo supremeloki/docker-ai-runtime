@@ -88,3 +88,5 @@ def render_compose(services: Sequence[ContainerSpec]) -> dict[str, Any]:
         if spec.volumes:
             entry["volumes"] = [f"{h}:{c}" for h, c in spec.volumes]
         if spec.command:
+            entry["command"] = list(spec.command)
+        compose["services"][spec.name] = entry
