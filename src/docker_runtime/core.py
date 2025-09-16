@@ -92,3 +92,6 @@ def render_compose(services: Sequence[ContainerSpec]) -> dict[str, Any]:
         compose["services"][spec.name] = entry
     return compose
 
+
+def write_deployment_bundle(directory: Path, dockerfile: str,
+                            services: Sequence[ContainerSpec]) -> Path:
