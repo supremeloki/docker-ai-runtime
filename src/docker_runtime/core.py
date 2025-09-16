@@ -90,3 +90,5 @@ def render_compose(services: Sequence[ContainerSpec]) -> dict[str, Any]:
         if spec.command:
             entry["command"] = list(spec.command)
         compose["services"][spec.name] = entry
+    return compose
+
