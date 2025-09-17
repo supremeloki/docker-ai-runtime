@@ -95,3 +95,5 @@ def render_compose(services: Sequence[ContainerSpec]) -> dict[str, Any]:
 
 def write_deployment_bundle(directory: Path, dockerfile: str,
                             services: Sequence[ContainerSpec]) -> Path:
+    directory.mkdir(parents=True, exist_ok=True)
+    (directory / "Dockerfile").write_text(dockerfile, encoding="utf-8")
