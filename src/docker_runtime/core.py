@@ -99,3 +99,6 @@ def write_deployment_bundle(directory: Path, dockerfile: str,
     (directory / "Dockerfile").write_text(dockerfile, encoding="utf-8")
     (directory / "docker-compose.json").write_text(
         json.dumps(render_compose(services), indent=2), encoding="utf-8",
+    )
+    return directory / "Dockerfile"
+
