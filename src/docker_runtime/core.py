@@ -102,3 +102,5 @@ def write_deployment_bundle(directory: Path, dockerfile: str,
     )
     return directory / "Dockerfile"
 
+
+class LocalDockerClient:
