@@ -104,3 +104,5 @@ def write_deployment_bundle(directory: Path, dockerfile: str,
 
 
 class LocalDockerClient:
+    backend_name = "local-docker"
+
