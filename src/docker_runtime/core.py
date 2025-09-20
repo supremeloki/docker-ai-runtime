@@ -106,3 +106,5 @@ def write_deployment_bundle(directory: Path, dockerfile: str,
 class LocalDockerClient:
     backend_name = "local-docker"
 
+    def __init__(self, binary: str = "docker") -> None:
+        self._binary = binary
