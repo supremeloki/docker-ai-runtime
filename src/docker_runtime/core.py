@@ -111,3 +111,5 @@ class LocalDockerClient:
 
     def _run(self, *args: str) -> str:
         try:
+            completed = subprocess.run(
+                [self._binary, *args],
