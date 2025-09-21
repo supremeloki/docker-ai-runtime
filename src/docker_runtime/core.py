@@ -108,3 +108,6 @@ class LocalDockerClient:
 
     def __init__(self, binary: str = "docker") -> None:
         self._binary = binary
+
+    def _run(self, *args: str) -> str:
+        try:
