@@ -115,3 +115,6 @@ class LocalDockerClient:
                 [self._binary, *args],
                 capture_output=True, text=True, timeout=120,
             )
+        except FileNotFoundError as exc:
+            raise DockerUnavailableError(f"{self._binary} not installed") from exc
+        except subprocess.TimeoutExpired as exc:
