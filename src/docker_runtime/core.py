@@ -113,3 +113,5 @@ class LocalDockerClient:
         try:
             completed = subprocess.run(
                 [self._binary, *args],
+                capture_output=True, text=True, timeout=120,
+            )
