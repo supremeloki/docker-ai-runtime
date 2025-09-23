@@ -118,3 +118,5 @@ class LocalDockerClient:
         except FileNotFoundError as exc:
             raise DockerUnavailableError(f"{self._binary} not installed") from exc
         except subprocess.TimeoutExpired as exc:
+            raise DockerRuntimeError(f"command timed out: {args}") from exc
+        if completed.returncode != 0:
