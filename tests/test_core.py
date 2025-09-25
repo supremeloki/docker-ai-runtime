@@ -67,3 +67,4 @@ def test_start_without_build_rejected():
         SimulatedDockerClient().start(ContainerSpec(name="x", image="never/built"))
 
 
+def test_simulated_build_failure_is_one_shot():
