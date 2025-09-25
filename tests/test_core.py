@@ -65,3 +65,5 @@ def test_simulated_build_then_start():
 def test_start_without_build_rejected():
     with pytest.raises(ImageBuildError, match="not built"):
         SimulatedDockerClient().start(ContainerSpec(name="x", image="never/built"))
+
+
