@@ -71,3 +71,5 @@ def test_simulated_build_failure_is_one_shot():
     client = SimulatedDockerClient()
     client.fail_next_build = True
     with pytest.raises(ImageBuildError):
+        client.build(Path("."), "ai/flaky")
+    retried = client.build(Path("."), "ai/flaky")
