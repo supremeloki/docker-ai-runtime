@@ -70,3 +70,4 @@ def test_start_without_build_rejected():
 def test_simulated_build_failure_is_one_shot():
     client = SimulatedDockerClient()
     client.fail_next_build = True
+    with pytest.raises(ImageBuildError):
