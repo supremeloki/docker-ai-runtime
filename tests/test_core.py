@@ -74,3 +74,4 @@ def test_simulated_build_failure_is_one_shot():
         client.build(Path("."), "ai/flaky")
     retried = client.build(Path("."), "ai/flaky")
     assert retried.succeeded
+
