@@ -76,3 +76,4 @@ def test_simulated_build_failure_is_one_shot():
     assert retried.succeeded
 
 
+def test_stop_unknown_container_rejected():
