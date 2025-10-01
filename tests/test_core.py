@@ -77,3 +77,5 @@ def test_simulated_build_failure_is_one_shot():
 
 
 def test_stop_unknown_container_rejected():
+    with pytest.raises(Exception):
+        SimulatedDockerClient().stop("phantom")
