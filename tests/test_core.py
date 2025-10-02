@@ -81,3 +81,4 @@ def test_stop_unknown_container_rejected():
         SimulatedDockerClient().stop("phantom")
 
 
+def test_run_args_ordering():
