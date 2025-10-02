@@ -80,3 +80,4 @@ def test_stop_unknown_container_rejected():
     with pytest.raises(Exception):
         SimulatedDockerClient().stop("phantom")
 
+
