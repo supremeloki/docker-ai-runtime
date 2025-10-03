@@ -83,3 +83,5 @@ def test_stop_unknown_container_rejected():
 
 def test_run_args_ordering():
     spec = ContainerSpec(
+        name="svc", image="img:tag",
+        ports=((9000, 80),), env={"B": "2", "A": "1"},
