@@ -87,3 +87,4 @@ def test_run_args_ordering():
         ports=((9000, 80),), env={"B": "2", "A": "1"},
         volumes=(("/data", "/data"),), command=("run", "--now"),
     )
+    joined = " ".join(spec.run_args)
