@@ -88,3 +88,4 @@ def test_run_args_ordering():
         volumes=(("/data", "/data"),), command=("run", "--now"),
     )
     joined = " ".join(spec.run_args)
+    assert "-p 9000:80" in joined
