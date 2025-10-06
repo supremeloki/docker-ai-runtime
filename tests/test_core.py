@@ -89,3 +89,5 @@ def test_run_args_ordering():
     )
     joined = " ".join(spec.run_args)
     assert "-p 9000:80" in joined
+    for key in ("A=1", "B=2"):
+        assert f"{key}" in joined
