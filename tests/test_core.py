@@ -92,3 +92,4 @@ def test_run_args_ordering():
     for key in ("A=1", "B=2"):
         assert f"{key}" in joined
     assert "/data:/data" in joined
+    assert spec.run_args[-2:] == ["run", "--now"]
