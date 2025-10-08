@@ -94,3 +94,5 @@ def test_run_args_ordering():
     assert "/data:/data" in joined
     assert spec.run_args[-2:] == ["run", "--now"]
 
+
+def test_local_client_unavailable_raises_clean():
