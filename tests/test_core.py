@@ -96,3 +96,4 @@ def test_run_args_ordering():
 
 
 def test_local_client_unavailable_raises_clean():
+    client = LocalDockerClient(binary="definitely-not-a-binary-xyz")
