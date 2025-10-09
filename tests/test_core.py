@@ -99,3 +99,4 @@ def test_local_client_unavailable_raises_clean():
     client = LocalDockerClient(binary="definitely-not-a-binary-xyz")
     with pytest.raises(DockerUnavailableError):
         client.is_available()
+
