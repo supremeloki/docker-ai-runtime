@@ -102,3 +102,4 @@ def test_local_client_unavailable_raises_clean():
 
 
 def test_ports_env_volumes_all_present_in_args():
+    spec = ContainerSpec(
