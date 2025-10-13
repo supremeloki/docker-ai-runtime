@@ -106,3 +106,5 @@ def test_ports_env_volumes_all_present_in_args():
         name="full", image="img",
         ports=((8080, 80),), env={"KEY": "VAL"}, volumes=(("/h", "/c"),),
     )
+    joined = " ".join(spec.run_args)
+    assert "-p 8080:80" in joined
