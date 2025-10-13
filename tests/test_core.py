@@ -105,3 +105,4 @@ def test_ports_env_volumes_all_present_in_args():
     spec = ContainerSpec(
         name="full", image="img",
         ports=((8080, 80),), env={"KEY": "VAL"}, volumes=(("/h", "/c"),),
+    )
