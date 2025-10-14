@@ -109,3 +109,4 @@ def test_ports_env_volumes_all_present_in_args():
     joined = " ".join(spec.run_args)
     assert "-p 8080:80" in joined
     assert "KEY=VAL" in joined
+    assert "/h:/c" in joined
