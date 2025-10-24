@@ -120,3 +120,95 @@ class LocalDockerClient:
         except subprocess.TimeoutExpired as exc:
             raise DockerRuntimeError(f"command timed out: {args}") from exc
         if completed.returncode != 0:
+            raise DockerRuntimeError(completed.stderr.strip() or f"exit {completed.returncode}")
+        return completed.stdout.strip()
+
+    def is_available(self) -> bool:
+        try:
+            self._run("version", "--format", "{{.Server.Version}}")
+            return True
+        except DockerUnavailableError:
+            raise
+        except DockerRuntimeError:
+            return False
+
+    def build(self, context_dir: Path, tag: str) -> BuildResult:
+        started = time.monotonic()
+        try:
+            self._run("build", "-t", tag, str(context_dir))
+        except DockerRuntimeError as exc:
+            raise ImageBuildError(tag, str(exc)) from exc
+        duration = time.monotonic() - started
+        return BuildResult(image_tag=tag, layers_cached=False,
+                           duration_seconds=round(duration, 2))
+
+    def start(self, spec: ContainerSpec) -> str:
+        return self._run(*spec.run_args)[:12]
+
+    def stop(self, name: str) -> None:
+        self._run("stop", name)
+
+    def logs(self, name: str, tail_lines: int = 100) -> str:
+        return self._run("logs", "--tail", str(tail_lines), name)
+
+    def running_containers(self) -> list[dict[str, Any]]:
+        output = self._run(
+            "ps", "--format", "{{json .}}",
+        )
+        containers: list[dict[str, Any]] = []
+        for line in output.splitlines():
+            if line.strip():
+                containers.append(json.loads(line))
+        return containers
+
+
+class SimulatedDockerClient(LocalDockerClient):
+    backend_name = "simulated"
+
+    def __init__(self) -> None:
+        super().__init__()
+        self._running: dict[str, ContainerSpec] = {}
+        self._built_tags: set[str] = set()
+        self.fail_next_build = False
+
+    def is_available(self) -> bool:
+        return True
+
+    def build(self, context_dir: Path, tag: str) -> BuildResult:
+        if self.fail_next_build:
+            self.fail_next_build = False
+            raise ImageBuildError(tag, "simulated build failure")
+        self._built_tags.add(tag)
+        return BuildResult(image_tag=tag, layers_cached=True, duration_seconds=0.1)
+
+    def start(self, spec: ContainerSpec) -> str:
+        if spec.image not in self._built_tags:
+            raise ImageBuildError(spec.image, "image not built yet")
+        self._running[spec.name] = spec
+        return spec.name[:12]
+
+    def stop(self, name: str) -> None:
+        if name not in self._running:
+            raise ContainerNotFoundError(name)
+        del self._running[name]
+
+    def running_containers(self) -> list[dict[str, Any]]:
+        return [
+            {"name": spec.name, "image": spec.image}
+            for spec in self._running.values()
+        ]
+
+
+__all__ = [
+    "BuildResult",
+    "ContainerNotFoundError",
+    "ContainerSpec",
+    "DockerRuntimeError",
+    "DockerUnavailableError",
+    "ImageBuildError",
+    "LocalDockerClient",
+    "SimulatedDockerClient",
+    "render_compose",
+    "render_dockerfile",
+    "write_deployment_bundle",
+]
